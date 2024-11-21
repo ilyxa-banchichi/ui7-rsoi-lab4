@@ -80,7 +80,7 @@ jobs:
         script: |
             cd ${{ env.APP_PATH }}/k8s/
             helm upgrade postgres postgres-chart
-            helm install redis oci://registry-1.docker.io/bitnamicharts/redis -f redis-chart/values.yaml
+            helm upgrade redis oci://registry-1.docker.io/bitnamicharts/redis -f redis-chart/values.yaml
             helm upgrade rsoi services
 
   Autograding:
