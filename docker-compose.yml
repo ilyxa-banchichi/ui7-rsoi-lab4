@@ -30,7 +30,7 @@ services:
       - redis-local
 
   gateway:
-    image: ilyxabanchichi/rsoi-lab3-gateway:latest
+    image: ilyxabanchichi/rsoi-lab4-gateway:latest
     restart: always
     build:
       context: ./app
@@ -48,62 +48,62 @@ services:
       - rating-local
       - redis-local
 
-#   library-service:
-#     image: ilyxabanchichi/rsoi-lab3-library-service:latest
-#     restart: always
-#     build:
-#       context: ./app
-#       dockerfile: ./LibraryService/Dockerfile
-#       args:
-#         BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
-#     env_file:
-#       - ./.env
-#       - ./env/library-service.env
-#     ports:
-#       - ${LIBRARY_PORT}:${LIBRARY_PORT}
-#     depends_on:
-#       - postgres
-#     networks:
-#       - db-local
-#       - library-local
+  library-service:
+    image: ilyxabanchichi/rsoi-lab4-library-service:latest
+    restart: always
+    build:
+      context: ./app
+      dockerfile: ./LibraryService/Dockerfile
+      args:
+        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
+    env_file:
+      - ./.env
+      - ./env/library-service.env
+    ports:
+      - ${LIBRARY_PORT}:${LIBRARY_PORT}
+    depends_on:
+      - postgres
+    networks:
+      - db-local
+      - library-local
 
-#   reservation-service:
-#     image: ilyxabanchichi/rsoi-lab3-reservation-service:latest
-#     restart: always
-#     build:
-#       context: ./app
-#       dockerfile: ./ReservationService/Dockerfile
-#       args:
-#         BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
-#     env_file:
-#       - ./.env
-#       - ./env/reservation-service.env
-#     ports:
-#       - ${RESERVATION_PORT}:${RESERVATION_PORT}
-#     depends_on:
-#       - postgres
-#     networks:
-#       - db-local
-#       - reservation-local
+  reservation-service:
+    image: ilyxabanchichi/rsoi-lab4-reservation-service:latest
+    restart: always
+    build:
+      context: ./app
+      dockerfile: ./ReservationService/Dockerfile
+      args:
+        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
+    env_file:
+      - ./.env
+      - ./env/reservation-service.env
+    ports:
+      - ${RESERVATION_PORT}:${RESERVATION_PORT}
+    depends_on:
+      - postgres
+    networks:
+      - db-local
+      - reservation-local
 
-#   rating-service:
-#     image: ilyxabanchichi/rsoi-lab3-rating-service:latest
-#     restart: always
-#     build:
-#       context: ./app
-#       dockerfile: ./RatingService/Dockerfile
-#       args:
-#         BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
-#     env_file:
-#       - ./.env
-#       - ./env/rating-service.env
-#     ports:
-#       - ${RATING_PORT}:${RATING_PORT}
-#     depends_on:
-#       - postgres
-#     networks:
-#       - db-local
-#       - rating-local
+  rating-service:
+    image: ilyxabanchichi/rsoi-lab4-rating-service:latest
+    restart: always
+    build:
+      context: ./app
+      dockerfile: ./RatingService/Dockerfile
+      args:
+        BUILD_CONFIGURATION: ${BUILD_CONFIGURATION}
+    env_file:
+      - ./.env
+      - ./env/rating-service.env
+    ports:
+      - ${RATING_PORT}:${RATING_PORT}
+    depends_on:
+      - postgres
+    networks:
+      - db-local
+      - rating-local
 
 networks:
   library-local:
