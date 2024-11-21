@@ -19,7 +19,6 @@ env:
 
 jobs:
   Publish:
-    needs: Autograding
     runs-on: ubuntu-latest
 
     steps:
@@ -72,6 +71,7 @@ jobs:
         target: ${{ env.APP_PATH }}
 
   Autograding:
+    needs: Deploy
     name: Autograding
     runs-on: ubuntu-latest
     steps:
