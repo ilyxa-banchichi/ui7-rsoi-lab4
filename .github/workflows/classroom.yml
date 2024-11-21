@@ -69,25 +69,39 @@ jobs:
         source: ./k8s
         target: ${{ env.APP_PATH }}
 
-  # Autograding:
-  #   needs: Deploy
-  #   name: Autograding
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       with:
-  #         fetch-depth: 0
+    - name: Deploy
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.SSH_USER_NAME }}
+        key: ${{ secrets.SSH_KEY }}
+        passphrase: ${{ secrets.SSH_PASS }}
+        port: 22
+        script: |
+            cd ${{ env.APP_PATH }}/k8s/
+            helm upgrade postrgres postgres-chart
+            helm upgrade redis redis-chart
+            helm upgrade rsoi services
 
-  #     - uses: docker/setup-buildx-action@v2
+  Autograding:
+    needs: Deploy
+    name: Autograding
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
-  #     - name: Run API Tests
-  #       uses: matt-ball/newman-action@master
-  #       with:
-  #         collection: v4/postman/collection.json
-  #         environment: v4/postman/environment.json
-  #         delayRequest: 100
-  #         reporters: '[ "cli" ]'
+      - uses: docker/setup-buildx-action@v2
 
-  #     - uses: education/autograding@v1
-  #       id: autograder
-  #       continue-on-error: true
+      - name: Run API Tests
+        uses: matt-ball/newman-action@master
+        with:
+          collection: v4/postman/collection.json
+          environment: v4/postman/environment.json
+          delayRequest: 100
+          reporters: '[ "cli" ]'
+
+      - uses: education/autograding@v1
+        id: autograder
+        continue-on-error: true
