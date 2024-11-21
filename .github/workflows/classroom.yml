@@ -58,7 +58,7 @@ jobs:
             rm -rf ${{ env.APP_PATH }}
             mkdir -p ${{ env.APP_PATH }}
 
-      - name: Copy helm files
+    - name: Copy helm files
       uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ secrets.HOST }}
