@@ -79,7 +79,7 @@ jobs:
         port: 22
         script: |
             cd ${{ env.APP_PATH }}/k8s/
-            helm upgrade postrgres postgres-chart
+            helm upgrade postgres postgres-chart
             helm upgrade redis redis-chart
             helm upgrade rsoi services
 
