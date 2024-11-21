@@ -58,16 +58,16 @@ jobs:
             rm -rf ${{ env.APP_PATH }}
             mkdir -p ${{ env.APP_PATH }}
 
-    # - name: Copy helm files
-    #   uses: appleboy/scp-action@v0.1.7
-    #   with:
-    #     host: ${{ secrets.HOST }}
-    #     username: ${{ secrets.SSH_USER_NAME }}
-    #     key: ${{ secrets.SSH_KEY }}
-    #     passphrase: ${{ secrets.SSH_PASS }}
-    #     port: 22
-    #     source: ./k8s
-    #     target: ${{ env.APP_PATH }}
+    - name: Copy helm files
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.SSH_USER_NAME }}
+        key: ${{ secrets.SSH_KEY }}
+        passphrase: ${{ secrets.SSH_PASS }}
+        port: 22
+        source: ./k8s
+        target: ${{ env.APP_PATH }}
 
   # Autograding:
   #   needs: Deploy
